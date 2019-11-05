@@ -139,6 +139,6 @@ func dirSize(fp string) (rsize int64, fileErr error) {
 }
 
 func main() {
-	log.Println(dirSize("/home/suguoyao/miniconda3"))
-	log.Println(dirSize("/home/suguoyao/largedir/"))
+	log.Println(dirSize("~/miniconda3"))
+	log.Println(dirSize("~/largedir/"))
 }
