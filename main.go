@@ -9,13 +9,13 @@ import (
 )
 
 const (
-	InoOff  = unsafe.Offsetof(unix.Dirent{}.Off)
-	RecOff  = unsafe.Offsetof(unix.Dirent{}.Reclen)
-	NameOff = unsafe.Offsetof(unix.Dirent{}.Name)
+	InoOff  = unsafe.Offsetof(Dirent{}.Ino)
+	RecOff  = unsafe.Offsetof(Dirent{}.Reclen)
+	NameOff = unsafe.Offsetof(Dirent{}.Name)
 
-	InoSize  = unsafe.Sizeof(unix.Dirent{}.Off)
-	RecSize  = unsafe.Sizeof(unix.Dirent{}.Reclen)
-	NameSize = unsafe.Sizeof(unix.Dirent{}.Name)
+	InoSize  = unsafe.Sizeof(Dirent{}.Ino)
+	RecSize  = unsafe.Sizeof(Dirent{}.Reclen)
+	NameSize = unsafe.Sizeof(Dirent{}.Name)
 )
 
 type FileSystemUsageStruct struct {
@@ -71,7 +71,6 @@ func parseDirent(buf []byte, names []string, fileNumber int64) (_ []string, _ er
 			}
 		}
 		name := string(nameBuf)
-		log.Println(name)
 		if name == "." || name == ".." {
 			continue
 		}
@@ -95,7 +94,7 @@ func fileCheck(fp string) (names []string, size int64, dir bool, err error) {
 		log.Println("Fstat err:", err)
 		return names, size, dir, err
 	}
-	dir = isDir(fStat.Mode)
+	dir = isDir(uint32(fStat.Mode))
 	if !dir {
 		return names, fStat.Size, dir, nil
 	}
@@ -118,7 +117,6 @@ func fileCheck(fp string) (names []string, size int64, dir bool, err error) {
 			return names, size, dir, err
 		}
 	}
-	log.Println("file numbers:", len(names))
 	return names, size, dir, nil
 }
 
@@ -141,5 +139,6 @@ func dirSize(fp string) (rsize int64, fileErr error) {
 }
 
 func main() {
-	log.Println(dirSize("to your dir path. "))
+	log.Println(dirSize("/home/suguoyao/miniconda3"))
+	log.Println(dirSize("/home/suguoyao/largedir/"))
 }

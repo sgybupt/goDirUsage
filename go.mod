@@ -1,4 +1,4 @@
-module golang_playground
+module godirusage
 
 go 1.12
 
