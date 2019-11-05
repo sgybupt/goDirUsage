@@ -1,4 +1,4 @@
-package main
+package godirusage
 
 import (
 	"encoding/binary"
@@ -136,9 +136,4 @@ func dirSize(fp string) (rsize int64, fileErr error) {
 		rsize += tsize
 	}
 	return rsize, fileErr
-}
-
-func main() {
-	log.Println(dirSize("~/miniconda3"))
-	log.Println(dirSize("~/largedir/"))
 }

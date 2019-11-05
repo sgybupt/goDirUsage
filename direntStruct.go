@@ -1,4 +1,4 @@
-package main
+package godirusage
 
 type Dirent struct {
 	Ino    uint64
@@ -8,4 +8,3 @@ type Dirent struct {
 	Name   [256]int8
 	_      [5]byte
 }
-
