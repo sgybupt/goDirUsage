@@ -102,6 +102,7 @@ func fileCheck(fp string) (names []string, size int64, dir bool, err error) {
 	buf := make([]byte, 32*1024)   // len = 32K
 	for {
 		// 此处bufferLen是有效长度, 如果buf尾处不够一个完整读取, 则systemcall不会将最后的recBuff放在尾部 而会放在下一次读取的开头
+		// buf 每一次都是完整dirent的读取
 		bufLen, err := unix.ReadDirent(fd, buf)
 		if bufLen == 0 {
 			break
